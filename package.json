@@ -1,0 +1,36 @@
+{
+  "name": "cms_server",
+  "version": "1.0.0",
+  "description": "cms server",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "Level.Z",
+    "cms",
+    "node",
+    "JavaScript"
+  ],
+  "author": "Level.Z",
+  "license": "ISC",
+  "dependencies": {
+    "http-errors": "^1.6.3",
+    "ioredis": "^3.2.2",
+    "koa": "^2.5.2",
+    "koa-body": "^4.0.4",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.0-beta4",
+    "nodemailer": "^4.6.8",
+    "qiniu": "^7.2.1",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
+    "supertest": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
