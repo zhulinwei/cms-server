@@ -69,7 +69,7 @@ class ArticleController {
     if (!id) throw new createError.BadRequest('无效的文章编号');
     const { catalogId, title, thumbnail, outline, content, isTop, author } = ctx.request.body;
     let updator = {};
-    if (isTop) updator.isTop = isTop;
+    if (util.isBoolean(isTop)) updator.isTop = isTop;
     if (title) updator.title = title;
     if (author) updator.author = author;
     if (outline) updator.outline = outline;
