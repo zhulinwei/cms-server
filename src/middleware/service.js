@@ -2,8 +2,6 @@ const koaBody = require('koa-body');
 const createError = require('http-errors');
 
 class ServiceMiddelware {
-  constructor() {}
-
   async notFound(ctx, next) {
     console.log(ctx.url, ctx.method);
     await next();

@@ -21,7 +21,8 @@ class BlogRouter {
     router.get('/blog/search', ctrl.blog.article.search);
     // 博客管理
 
-    router.get('/auth/:type/login', ctrl.user.authenticate, ctrl.user.setCookies, ctrl.user.login);
+    router.get('/auth/:type/login', ctrl.user.authenticate, ctrl.user.login, ctrl.user.setCookies);
+
     return router;
   }
 }

@@ -8,6 +8,9 @@ class ArticleController {
 
   async list(ctx, next) {
     let { selector, options } = ctx.request.body;
+    console.log(ctx.request.body)
+    console.log(selector);
+    console.log('------');
     selector = selector || {};
     options = options || { limit: 20 };
     let { count, list } = await Service.blog.article.list(selector, options);

@@ -64,10 +64,10 @@ class QQStrategy extends Base {
   __format(user) {
     if (!user) throw new createError.Unauthorized('无效的用户信息！');
     return {
+      body: user,
       provider: 'qq',
       openId: user.openId,
       nickname: user.nickname,
-      body: user
     };
   }
 
@@ -76,7 +76,8 @@ class QQStrategy extends Base {
     const appKey = this[APPKEY];
     if (!(appId || appKey)) throw new createError.Unauthorized('无效的配置信息！');
     const code = options.query.code;
-    const redirect = options.url.substr(0, options.url.indexOf('code')-1);
+    // const redirect = options.url.substr(0, options.url.indexOf('code')-1);
+    const redirect = 'http://www.51linwei.top';
     const qqTokenCallback = await this.__getToken(code, appId, appKey, redirect);
     const qqToken = util.isString(qqTokenCallback) ? queryString.parse(qqTokenCallback) : {};
     if (!(qqToken && qqToken.access_token && qqToken.refresh_token)) throw new createError.Unauthorized('获取QQ授权失败，无法获取用户令牌！'); 

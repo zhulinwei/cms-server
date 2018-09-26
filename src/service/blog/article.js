@@ -9,6 +9,9 @@ class ArticleService {
 
   async list(selector, options) {
     if (selector.catalogId) selector.catalogId = utils.newObjectId(selector.catalogId);
+    if (selector.title) selector.title = new RegExp(selector.title);
+    if (selector.content) selector.content = new RegExp(selector.content);
+    console.log(selector);
     const [ count, list ] = await Promise.all([
       mongodbModel.blog.article.count(selector),
       mongodbModel.blog.article.find(selector, options),

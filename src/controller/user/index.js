@@ -42,12 +42,12 @@ class UserController {
       params: ctx.params,
       body: ctx.request.body
     };
-    const user = await strategy.execute(options); 
-    ctx.state.user = user;
+    ctx.state.user = await strategy.execute(options);
     await next();
   }
 
   async login(ctx, next) {
+
     const referer = ctx.query.referer;
     if (referer) return ctx.redirect(referer);
     ctx.body = ctx.state.user; 

@@ -1,8 +1,6 @@
 const Service = require('../service');
 
 class UserMiddelware {
-  constructor() {}
-
   async check(ctx, next) {
     const uid = ctx.cookies.get('uid') || ctx.request.body.uid;
     const user = yield Service.user.userInfo(uid);
