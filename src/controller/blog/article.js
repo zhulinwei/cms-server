@@ -67,7 +67,7 @@ class ArticleController {
   async update(ctx, next) {
     const id = ctx.params.id;
     if (!id) throw new createError.BadRequest('无效的文章编号');
-    const { catalogId, title, thumbnail, outline, content, isTop, author } = ctx.request.body;
+    const { catalogId, title, thumbnail, outline, content, isTop, author, readCount } = ctx.request.body;
     let updator = {};
     if (util.isBoolean(isTop)) updator.isTop = isTop;
     if (title) updator.title = title;
@@ -76,6 +76,7 @@ class ArticleController {
     if (content) updator.content = content;
     if (thumbnail) updator.thumbnail = utils.removeQiniuHost(thumbnail);
     if (catalogId) updator.catalogId = utils.newObjectId(catalogId);
+    if (readCount) updator.readCount = parseInt(readCount);
     await Service.blog.article.update(id, updator);
     ctx.status = 200;
   }

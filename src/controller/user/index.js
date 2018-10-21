@@ -47,7 +47,6 @@ class UserController {
   }
 
   async login(ctx, next) {
-
     const referer = ctx.query.referer;
     if (referer) return ctx.redirect(referer);
     ctx.body = ctx.state.user; 
