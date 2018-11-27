@@ -12,7 +12,7 @@
 # fi
 #  docker run -d -p ${server_port}:${server_port} --name ${container_name} ${image_name}
 # 
-CONTAINER_NAME="cms_server"
+CONTAINER_NAME="cms-server"
 CONTAINER_ID=$(docker ps -a | grep "${CONTAINER_NAME}" | awk '{print $1}') 
 CONTAINER_PORT=3451
 IMAGE_TAG=$1
