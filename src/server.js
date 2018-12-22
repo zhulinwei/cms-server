@@ -27,8 +27,6 @@ class Service {
     // 路由的进入必须在初始化数据库之后 
     const router = require('./router');
     router.routes(app);
-    // app.listen(config.port);
-    // console.log('开启成功')
     return app;
   }
 }

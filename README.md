@@ -33,7 +33,9 @@ cms-server是基于koa实现的内容管理系统后台接口
 文章发布
 
 ## 启动
-npm start
+1. npm start
+2. pm2 start bin/pm2.json
+3. docker build -t cms-server; docker run -d cms-server
 
 ## 环境变量
 |name|descript|demo|

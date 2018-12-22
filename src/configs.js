@@ -11,10 +11,6 @@ module.exports = {
       url: process.env.MONGODB_CMS || 'mongodb://localhost:27017',
       options: {}
     },
-    // passport: {
-    //   url: process.env.MONGODB_PASSPORT || 'mongodb://localhost:27017',
-    //   options: {}
-    // }
   },
   redis: {
     cms: {
@@ -22,15 +18,15 @@ module.exports = {
     }
   },
   qiniu: {
-    host: process.env.QINIU_HOST,
-    bucket: process.env.QINIU_BUCKET,
-    accessKey: process.env.QINIU_ACCESS_KEY,
-    secretKey: process.env.QINIU_SECRET_KEY,
+    host: process.env.QINIU_HOST || '',
+    bucket: process.env.QINIU_BUCKET || '',
+    accessKey: process.env.QINIU_ACCESS_KEY || '',
+    secretKey: process.env.QINIU_SECRET_KEY || '',
   },
   authorization: {
     qq: {
-      appId: process.env.QQ_WEB_APPID,
-      appKey: process.env.QQ_WEB_APPKEY   
+      appId: process.env.QQ_WEB_APPID || '',
+      appKey: process.env.QQ_WEB_APPKEY || '' 
     },
   },
   userDefaultAvatat: process.env.USER_DEFAULT_AVATAR || 'test/5b39e12b24556e0de4a778b8',
