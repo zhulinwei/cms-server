@@ -2,15 +2,15 @@
 
 ## 简介
 cms-server是基于koa实现的内容管理系统后台接口
-> 前端页面：https://github.com/zhulinwei/cms_client/
-> 演示地址：http://www.51linwei.top/
+> * 前端页面：https://github.com/zhulinwei/cms_client
+> * 演示地址：http://www.51linwei.top
 
 ## 组成
-> 1.用户系统
-> 2.统计系统
-> 3.任务系统
-> 4.通知系统
-> 5.博客系统
+> * 1.用户系统
+> * 2.统计系统
+> * 3.任务系统
+> * 4.通知系统
+> * 5.博客系统
 
 ## 功能介绍
 ...
