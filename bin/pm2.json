@@ -1,0 +1,23 @@
+{
+  "apps" : [{
+    "name"        : "cms-server",
+    "script"      : "./src/index.js",
+    "watch"       : true,
+    "env": {
+      "NAME": "cms-server",
+      "PORT": 3451,
+      "NODE_ENV": "development",
+      "MONGODB": "mongodb://localhost:27017",
+      "QINIU_BUCKET": "test",
+      "QINIU_HOST": "",
+      "QINIU_ACCESS_KEY": "",
+      "QINIU_SECRET_KEY": "",
+      "QQ_WEB_APPID": "",
+      "QQ_WEB_APPKEY": "",
+      "MAIL_HOST": "smtp.qq.com",
+      "MAIL_PORT": 465,
+      "MAIL_USER": "",
+      "MAIL_PASSWORD": ""
+    }
+  }]
+}
