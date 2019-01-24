@@ -18,7 +18,7 @@ class Mail {
     this._transporter = nodemailer.createTransport(options);
   }
 
-  send(body) {
+  async send(body) {
     let { from, to, subject, text, html, attachments } = body;
     if (!to) to = this._user;
     if (!from) from = this._user;
@@ -29,10 +29,7 @@ class Mail {
     if (text) options.text = text;
     if (attachments) options.attachments = attachments;
 
-    const result = this._transporter.sendMail(options).catch(err => {
-      console.log(err);
-    });
-    return result;
+    return await this._transporter.sendMail(options).catch(err => err)
   }
 }
 

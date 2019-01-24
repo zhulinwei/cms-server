@@ -12,16 +12,16 @@ class Service {
     app.use(middleware.serviceMiddleware.exception);
     app.use(middleware.serviceMiddleware.bodyParser);
     
-    process.on('unhandledRejection', (reason, p) => { 
-      mainService.send({ subject: process.env.NAME, html: p }); 
+    process.on('unhandledRejection', async (reason, p) => { 
+      await mainService.send({ subject: process.env.NAME, html: p }); 
     });
 
-    process.on('rejectionHandled', (p) => {
-      mainService.send({ subject: process.env.NAME, html: p }); 
+    process.on('rejectionHandled', async (p) => {
+      await mainService.send({ subject: process.env.NAME, html: p }); 
     });
 
-    process.on('uncaughtException', (err) => {
-      mainService.send({ subject: process.env.NAME, html: err }); 
+    process.on('uncaughtException', async (err) => {
+      await mainService.send({ subject: process.env.NAME, html: err }); 
     });
 
     // 路由的进入必须在初始化数据库之后 
