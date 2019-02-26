@@ -9,7 +9,7 @@ module.exports = {
   mongodb: {
     cms: {
       url: process.env.MONGODB_CMS || 'mongodb://localhost:27017',
-      options: {}
+      options: { useNewUrlParser: true }
     },
   },
   redis: {

@@ -7,7 +7,7 @@
       "NAME": "cms_server",
       "PORT": 3451,
       "NODE_ENV": "development",
-      "REDIS_CMS": "redis://:localhost:6379/0",
+      "REDIS_CMS": "redis://localhost:6379/0",
       "MONGODB_CMS": "mongodb://localhost:27017/cms"
     }
   }]
