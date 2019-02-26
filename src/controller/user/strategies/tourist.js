@@ -1,5 +1,5 @@
 const Base = require('./base');
-const Service = require('../../../service');
+const service = require('../../../service');
 
 
 
@@ -9,7 +9,7 @@ class TouristStrategy extends Base {
   } 
 
   async authorize() {
-    return await Service.user.newTourist(); 
+    return await service.user.newTourist(); 
   }
 
   async authenticate(authorization) {

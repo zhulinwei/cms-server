@@ -6,7 +6,7 @@ const utils = require('../../../utils');
 const common = require('../../../common');
 const queryString = require('querystring');
 const request = require('request-promise-native');
-const Service = require('../../../service');
+const service = require('../../../service');
 const createError = require('http-errors');
 
 const APPID = Symbol('appId');
@@ -98,15 +98,15 @@ class QQStrategy extends Base {
       openId: authorization.openId,
       provider: authorization.provider
     };
-    let user = await Service.user.findOneWithFormat(selector);
+    let user = await service.user.findOneWithFormat(selector);
     if (!user || _.isEmpty(user)) {
       const token = common.helper.newToken(authorization.openId, moment().format('YYYYMMDDHHmmss'));
       // TODO 上传头像的逻辑不应该在策略里面完成
-      const avatar = Service.qiniu.key('user');
+      const avatar = service.qiniu.key('user');
       const headImageUrl = authorization.body.figureurl_qq_2 || authorization.body.figureurl_qq_1;
-      await Service.qiniu.fetch(headImageUrl, avatar);
+      await service.qiniu.fetch(headImageUrl, avatar);
       const body = Object.assign({ token, avatar }, authorization);
-      user = await Service.user.register(body);
+      user = await service.user.register(body);
     }
     return user;
   }

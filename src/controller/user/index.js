@@ -2,7 +2,7 @@ const _ = require('lodash');
 const utils = require('../../utils');
 const Enum = require('../../common').enum;
 const configs = require('../../configs');
-const Service = require('../../service');
+const service = require('../../service');
 const Authenticator = require('./strategies');
 
 class UserController {
@@ -22,8 +22,8 @@ class UserController {
     if (!uid || !role) return ctx.redirect('/api/auth/tourist/login');
     let user = {};
     if (![ Enum.UserRoleType.USER, Enum.UserRoleType.TOURIST ].includes(role)) throw createError.BadRequest('无效的用户信息');
-    if (role === Enum.UserRoleType.USER) user = await Service.user.userinfo(uid);
-    else user = await Service.user.touristInfo(uid);
+    if (role === Enum.UserRoleType.USER) user = await service.user.userinfo(uid);
+    else user = await service.user.touristInfo(uid);
     ctx.body = user;
   }
 
