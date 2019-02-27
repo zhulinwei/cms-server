@@ -2,7 +2,10 @@
 module.exports = {
   UserRoleType: {
     USER: 'user',
-    TOURIST: 'tourist'
+    GUEST: 'guest',
+    ADMIN: 'admin',
+    TOURIST: 'tourist',
+    SUPER_ADMIN: 'superAdmin',
   },
 
   TaskStatusType: {
@@ -14,5 +17,5 @@ module.exports = {
   StatisticType: {
     BLOG_BASE: 'blog_base',
     BLOG_ACTICLE: 'blog_acticle'
-  }
+  },
 };
