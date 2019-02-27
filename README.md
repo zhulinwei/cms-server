@@ -61,6 +61,7 @@ cms-server是基于koa实现的内容管理系统后台接口
 
 ### 任务表task
 |属性|类型|描述|
+|----|----|----|
 |_id|ObjectId|编号|
 |status|int|任务状态|
 |name|string|任务名称|
