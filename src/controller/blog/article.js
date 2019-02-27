@@ -76,7 +76,7 @@ class ArticleController {
     if (content) updator.content = content;
     if (thumbnail) updator.thumbnail = utils.removeQiniuHost(thumbnail);
     if (catalogId) updator.catalogId = utils.newObjectId(catalogId);
-    if (readCount) updator.readCount = parseInt(readCount);
+    if (readCount) updator.readCount = parseInt(readCount || 0);
     await service.blog.article.update(id, updator);
     ctx.status = 200;
   }

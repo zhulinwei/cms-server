@@ -62,19 +62,35 @@ cms-server是基于koa实现的内容管理系统后台接口
 ### 任务表task
 |属性|类型|描述|
 |----|----|----|
-|_id|ObjectId|编号|
-|status|Int|任务状态|
+|_id|ObjectId|任务编号|
 |name|String|任务名称|
+|status|Int|任务状态|
 |nominee|String|执行人|
 |createTime|Date|创建时间|
 |updateTime|Date|更新时间|
 
-### 博客目录标blog_catalog
+### 博客目录表blog_catalog
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|目录编号|
+|name|String|目录名称|
+|weight|Int|目录权重|
+|createTime|Date|创建时间|
+|updateTime|Date|更新时间|
+
+### 博客文章表blog_article
 |属性|类型|描述|
 |----|----|----|
 |_id|ObjectId|编号|
-|name|String|目录名|
-|weight|Int|目录权重|
+|title|String|文章题目|
+|isTop|Boolean|文章置顶|
+|author|String|文章作者|
+|outline|String|文章简介|
+|content|String|文章内容|
+|thumbnail|String|文章缩略图|
+|catalogId|ObjectId|所属目录|
+|readCount|Int|阅读人数|
+|commentsCount|Int|评论人数|
 |createTime|Date|创建时间|
 |updateTime|Date|更新时间|
 
