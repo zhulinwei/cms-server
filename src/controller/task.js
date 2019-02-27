@@ -25,7 +25,7 @@ class TaskController {
     let updator = {};
     if (name) updator.name = name;
     if (nominee) updator.nominee = nominee;
-    if (status || status === Enum.TaskStatusType.INIT) updator.status = status;
+    if (status || status === Enum.TaskStatusType.INIT) updator.status = parseInt(status);
     await service.task.update(id, updator);
     ctx.status = 200;
   }

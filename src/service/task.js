@@ -1,6 +1,6 @@
 const utils = require('../utils');
-const mongodbModel = require('../model').mongodbModel;
 const Enum = require('../common/enum');
+const mongodbModel = require('../model').mongodbModel;
 
 class TaskService {
   async list(selector, options) {

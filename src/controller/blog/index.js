@@ -1,6 +1,5 @@
-
 module.exports = {
   article: require('./article'),
-  catalog: require('./catalog'), 
+  catalog: require('./catalog'),
   comment: require('./comment'),
 };

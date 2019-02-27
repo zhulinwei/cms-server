@@ -1,6 +1,6 @@
 
 module.exports = {
-  blog: require('./blog'), 
+  blog: require('./blog'),
   user: require('./user'), 
   task: require('./task'),
   mail: require('./mail'), 

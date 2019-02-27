@@ -27,7 +27,7 @@ class CatalogService {
     const filter = { name: body.name };
     const update = {
       name: body.name,
-      weight: parseInt(body.weight), 
+      weight: body.weight, 
       createTime: new Date()
     };
     // 创建目录的时候建议使用findOneAndUpdate替代insertOne 
@@ -39,7 +39,7 @@ class CatalogService {
     const filter = { _id: utils.newObjectId(id) };
     const update = {
       name: body.name,
-      weight: parseInt(body.weight), 
+      weight: body.weight, 
       updateTime: new Date()
     };
 

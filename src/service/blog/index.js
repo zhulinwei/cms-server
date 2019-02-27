@@ -1,4 +1,3 @@
-
 module.exports = {
   article: require('./article'),
   catalog: require('./catalog'),

@@ -63,10 +63,18 @@ cms-server是基于koa实现的内容管理系统后台接口
 |属性|类型|描述|
 |----|----|----|
 |_id|ObjectId|编号|
-|status|int|任务状态|
-|name|string|任务名称|
-|nominee|string|执行人|
-|createTime|date|创建时间|
-|updateTime|date|更新时间|
+|status|Int|任务状态|
+|name|String|任务名称|
+|nominee|String|执行人|
+|createTime|Date|创建时间|
+|updateTime|Date|更新时间|
 
+### 博客目录标blog_catalog
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|编号|
+|name|String|目录名|
+|weight|Int|目录权重|
+|createTime|Date|创建时间|
+|updateTime|Date|更新时间|
 

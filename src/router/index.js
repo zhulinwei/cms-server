@@ -15,4 +15,5 @@ class Router {
     });
   }
 }
+
 module.exports = new Router();
