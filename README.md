@@ -94,3 +94,52 @@ cms-server是基于koa实现的内容管理系统后台接口
 |createTime|Date|创建时间|
 |updateTime|Date|更新时间|
 
+### 管理员表admin
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|管理编号|
+|name|String|用户名字|
+|roles|Array|角色列表|
+|password|String|用户密码|
+|descript|String|职能描述|
+|loginIp|String|登录IP|
+|loginCount|String|登录次数|
+
+### 角色表role
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|角色编号|
+|name|String|角色名称|
+|permissions|Array|资源列表|
+
+### 许可表permission
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|许可编号|
+|action|String|操作种类|
+|source|String|资源路径|
+
+### 日志表log
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|日志编号|
+|username|String|用户名称|
+|type|String|日志类型|
+|action|String|操作种类|
+|source|String|资源路径|
+|ip|String|操作IP|
+|params|String|请求参数|
+|result|String|操作结果|
+
+### 菜单秒menu
+|属性|类型|描述|
+|----|----|----|
+|_id|ObjectId|菜单编号|
+|name|String|菜单名称|
+|url|String|菜单路径|
+|icon|String|菜单图标|
+|type|String|菜单类型|
+|parentId|ObjectId|父级菜单|
+|createTime|Date|创建时间|
+|updateTime|Date|更新时间|
+
