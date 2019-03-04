@@ -11,7 +11,6 @@ class Mongodb {
     if (!dbs || dbs.length < 1) return [];
     return await Promise.all(dbs.map(db=> {
       const url = config[db].url || '';
-      console.log(url)
       const options = config[db].options || {};
       return MongoClient.connect(url, options);
     }));
