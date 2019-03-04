@@ -81,7 +81,7 @@ cms-server是基于koa实现的内容管理系统后台接口
 ### 博客文章表blog_article
 |属性|类型|描述|
 |----|----|----|
-|_id|ObjectId|编号|
+|_id|ObjectId|文章编号|
 |title|String|文章题目|
 |isTop|Boolean|文章置顶|
 |author|String|文章作者|
@@ -131,7 +131,7 @@ cms-server是基于koa实现的内容管理系统后台接口
 |params|String|请求参数|
 |result|String|操作结果|
 
-### 菜单秒menu
+### 菜单表menu
 |属性|类型|描述|
 |----|----|----|
 |_id|ObjectId|菜单编号|
@@ -140,6 +140,7 @@ cms-server是基于koa实现的内容管理系统后台接口
 |icon|String|菜单图标|
 |type|String|菜单类型|
 |parentId|ObjectId|父级菜单|
+|hasChildren|Boolean|是否含有子菜单|
 |createTime|Date|创建时间|
 |updateTime|Date|更新时间|
 
