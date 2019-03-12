@@ -18,4 +18,9 @@ module.exports = {
     BLOG_BASE: 'blog_base',
     BLOG_ACTICLE: 'blog_acticle'
   },
+
+  MenuType: {
+    ONE_LEVEL: 'one_level',
+    TWO_LEVEL: 'two_level',
+  },
 };
