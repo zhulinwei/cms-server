@@ -7,9 +7,7 @@ const service = require('../../service')
 class ArticleController {
 
   async list(ctx, next) {
-    let { selector, options } = ctx.request.body;
-    selector = selector || {};
-    options = options || { limit: 20 };
+    let { selector = {}, options = { limit: 20 } } = ctx.request.body;
     let { count, list } = await service.blog.article.list(selector, options);
     list = list.map(article => {
       article.thumbnail = utils.addQiniuHost(article.thumbnail);
@@ -67,8 +65,8 @@ class ArticleController {
   async update(ctx, next) {
     const id = ctx.params.id;
     if (!id) throw new createError.BadRequest('无效的文章编号');
-    const { catalogId, title, thumbnail, outline, content, isTop, author, readCount } = ctx.request.body;
     let updator = {};
+    const { catalogId, title, thumbnail, outline, content, isTop, author, readCount } = ctx.request.body;
     if (util.isBoolean(isTop)) updator.isTop = isTop;
     if (title) updator.title = title;
     if (author) updator.author = author;
