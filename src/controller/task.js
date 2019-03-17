@@ -3,9 +3,7 @@ const service = require('../service');
 
 class TaskController {
   async list(ctx, next) {
-    let { selector, options } = ctx.request.body;
-    selector = selector || {};
-    options = options || { limit: 20 };
+    let { selector = {}, options = { limit: 20 }} = ctx.request.body;
     ctx.body = await service.task.list(selector, options);
   }
 

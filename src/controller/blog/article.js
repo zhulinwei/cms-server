@@ -8,6 +8,10 @@ class ArticleController {
 
   async list(ctx, next) {
     let { selector = {}, options = { limit: 20 } } = ctx.request.body;
+    if (selector.catalogId) selector.catalogId = utils.newObjectId(selector.catalogId);
+    if (selector.title) selector.title = new RegExp(selector.title);
+    if (selector.content) selector.content = new RegExp(selector.content);
+
     let { count, list } = await service.blog.article.list(selector, options);
     list = list.map(article => {
       article.thumbnail = utils.addQiniuHost(article.thumbnail);
@@ -15,8 +19,6 @@ class ArticleController {
     });
     const residue = utils.residue(count);
     ctx.body = { count, residue, list };
-
-    const result = await service.blog.article.list(selector, options);
   }
 
   async nextList(ctx, next) {
