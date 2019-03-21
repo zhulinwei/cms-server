@@ -1,4 +1,12 @@
+const mongodb = require('../../database').mongodb;
+
 class BaseModel {
+  constructor(database, collection) {
+    if (!database) throw new Error('database name is not defined');
+    if (!collection) throw new Error('collection name is not defined')
+    this.coll = mongodb[database].collection(collection);
+  }
+
   async insertOne(doc, options) {
     doc = doc || {};
     options = options || null;

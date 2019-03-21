@@ -1,7 +1,9 @@
 
 module.exports = {
-  blog: require('./blog'),
-  user: require('./user'),
   task: require('./task'),
+  user: require('./user'),
+  blog: require('./blog'),
+  admin: require('./admin'),
+  setting: require('./setting'),
   statistic: require('./statistic'),
-}
+};
