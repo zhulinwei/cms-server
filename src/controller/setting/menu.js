@@ -13,7 +13,6 @@ class MenuController {
     if (exists) throw new createError.BadRequest('菜单已经存在，请勿重复添加');
 
     if (parentId) type = Enum.MenuType.TWO_LEVEL;
-    console.log(parentId)
     if (parentId) parentId = utils.newObjectId(parentId);
     await service.setting.menu.save({ name, url, icon, type, parentId, hasChildren });
     ctx.status = 200;
@@ -43,6 +42,11 @@ class MenuController {
     if (!id) throw new createError.BadRequest('无效的文章编号');
     await service.setting.menu.remove(id);
     ctx.status = 200;     
+  }
+
+  async all(ctx, next) {
+    const type = ctx.params.type || Enum.MenuDisplayType.TREE;
+    ctx.body = await service.setting.menu.all(type);
   }
 }
 
