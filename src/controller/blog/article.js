@@ -2,11 +2,10 @@ const util = require('util');
 const createError = require('http-errors');
 
 const utils = require('../../utils');
-const service = require('../../service')
+const service = require('../../service');
 
 class ArticleController {
-
-  async list(ctx, next) {
+  async list (ctx, next) {
     let { selector = {}, options = { limit: 20 } } = ctx.request.body;
     if (selector.catalogId) selector.catalogId = utils.newObjectId(selector.catalogId);
     if (selector.title) selector.title = new RegExp(selector.title);
@@ -21,7 +20,7 @@ class ArticleController {
     ctx.body = { count, residue, list };
   }
 
-  async nextList(ctx, next) {
+  async nextList (ctx, next) {
     const { catalogId, articleId } = ctx.request.body;
     if (!articleId) throw new createError.BadRequest('无效的文章编号');
     const result = await service.blog.article.nextList({ catalogId, articleId });
@@ -33,7 +32,7 @@ class ArticleController {
     ctx.body = { residue: utils.residue(result.count), list };
   }
 
-  async detail(ctx, next) {
+  async detail (ctx, next) {
     const id = ctx.params.id;
     const inc = ctx.query.inc || 0;
     if (!id) throw new createError.BadRequest('无效的文章编号');
@@ -41,8 +40,8 @@ class ArticleController {
     if (article) article.thumbnail = utils.addQiniuHost(article.thumbnail);
     ctx.body = article;
   }
-    
-  async save(ctx, next) {
+
+  async save (ctx, next) {
     let { catalogId, title, thumbnail, outline, content, isTop, author } = ctx.request.body;
     if (!catalogId) throw new createError.BadRequest('无效的目录信息');
     if (!title) throw new createError.BadRequest('无效的文章题目');
@@ -52,19 +51,19 @@ class ArticleController {
     if (!util.isBoolean(isTop)) throw new createError.BadRequest('无效的置顶信息');
     if (!author) throw new createError.BadRequest('无效的作者信息');
     catalogId = utils.newObjectId(catalogId);
-    const exists = await service.blog.catalog.exists({_id: catalogId });
+    const exists = await service.blog.catalog.exists({ _id: catalogId });
     if (!exists) throw new createError.BadRequest('不存在的目录信息');
     ctx.body = await service.blog.article.save({ catalogId, title, thumbnail, outline, content, isTop, author });
   }
 
-  async remove(ctx, next) {
+  async remove (ctx, next) {
     const id = ctx.params.id;
     if (!id) throw new createError.BadRequest('无效的文章编号');
     await service.blog.article.remove(id);
-    ctx.status = 200;     
+    ctx.status = 200;
   }
 
-  async update(ctx, next) {
+  async update (ctx, next) {
     const id = ctx.params.id;
     if (!id) throw new createError.BadRequest('无效的文章编号');
     let updator = {};
@@ -81,18 +80,17 @@ class ArticleController {
     ctx.status = 200;
   }
 
-  async comments(ctx, next) {
+  async comments (ctx, next) {
     const articleId = ctx.params.id;
     if (!articleId) throw new createError.BadRequest('无效的文章编号');
     ctx.body = await service.blog.article.coments(articleId);
   }
-  
-  async search(ctx, next) {
+
+  async search (ctx, next) {
     const keyword = ctx.query.keyword;
     if (!keyword) throw new createError.BadRequest('无效的关键字');
-    const keywords = keyword.split(' ');
     ctx.body = await service.blog.article.search(keyword);
-  }  
+  }
 }
 
 module.exports = new ArticleController();
