@@ -5,13 +5,13 @@ module.exports = {
     GUEST: 'guest',
     ADMIN: 'admin',
     TOURIST: 'tourist',
-    SUPER_ADMIN: 'superAdmin',
+    SUPER_ADMIN: 'superAdmin'
   },
 
   TaskStatusType: {
     INIT: 0,
     WORKING: 1,
-    FINISHED: 2,
+    FINISHED: 2
   },
 
   StatisticType: {
@@ -21,6 +21,10 @@ module.exports = {
 
   MenuType: {
     ONE_LEVEL: 'one_level',
-    TWO_LEVEL: 'two_level',
+    TWO_LEVEL: 'two_level'
   },
+
+  MenuDisplayType: {
+    TREE: 'tree'
+  }
 };
