@@ -1,19 +1,18 @@
-const ioredis = require('ioredis');
+const IoRedis = require('ioredis');
 const config = require('../configs').redis;
 
 class Redis {
-  constructor() {
+  constructor () {
     this.dbs = {};
   }
 
-  async init() {
+  async init () {
     if (Object.keys(this.dbs).length > 0) return this.dbs;
     const dbs = Object.keys(config);
-     
     dbs.forEach(db => {
-      this.dbs[db] = new ioredis(config[db].url);
+      this.dbs[db] = new IoRedis(config[db].url);
     });
     return this.dbs;
-  } 
+  }
 }
 module.exports = new Redis();
