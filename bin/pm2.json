@@ -2,7 +2,7 @@
   "apps" : [{
     "name"        : "cms_server",
     "script"      : "./src/index.js",
-    "watch"       : true,
+    "watch"       : ["src"],
     "env": {
       "NAME": "cms_server",
       "PORT": 3451,
