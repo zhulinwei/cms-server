@@ -5,3 +5,4 @@ bin/pm2_production.json
 *.DS_Store
 .svn
 Dockerfile
+backup
