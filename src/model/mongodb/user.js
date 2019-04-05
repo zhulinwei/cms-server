@@ -1,10 +1,11 @@
 const BaseModel = require('./base');
-const mongodb = require('../../database').mongodb;
+
+const DATABASE = 'cms';
+const COLLECTION = 'user';
 
 class UserModel extends BaseModel {
   constructor() {
-    super();
-    this.coll = mongodb.cms.collection('user');
+    super(DATABASE, COLLECTION);
   }
 }
 

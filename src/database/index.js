@@ -8,10 +8,14 @@ class Db {
   }
 
   async init(){
-    this.redis = await redis.init();
-    console.log('redis初始化成功');
-    this.mongodb = await mongodb.init();
-    console.log('mongodb初始化成功');
+    try {
+      this.redis = await redis.init();
+      console.log('redis初始化成功');
+      this.mongodb = await mongodb.init();
+      console.log('mongodb初始化成功');
+    } catch (err) {
+      console.log(err);  
+    }
   }
 }
 
