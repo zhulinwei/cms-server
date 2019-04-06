@@ -4,19 +4,19 @@ const utils = require('../utils');
 const config = require('../configs').qiniu;
 
 class QiniuService { 
-  constructor() {
+  constructor () {
     this.host = config.host;
     this.bucket = config.bucket;
     this.qiniuConfig = new qiniu.conf.Config();
     this.mac = new qiniu.auth.digest.Mac(config.accessKey, config.secretKey);
   }
 
-  key(type) {
+  key (type) {
     const prefix = type || 'cms';
     return `${prefix}/${utils.newObjectId()}`; 
   }
 
-  token(type) {
+  token (type) {
     const key = this.key(type);
     const options = { scope: `${this.bucket}:${key}`, expires: 7200 };
     const putPolicy = new qiniu.rs.PutPolicy(options);
@@ -25,7 +25,7 @@ class QiniuService {
   }
 
   //  拉取网络资源并存储至空间
-  fetch(url, key) {
+  fetch (url, key) {
     const bucketManager = new qiniu.rs.BucketManager(this.mac, this.qiniuConfig);
     return new Promise((resolve, reject) => {
       bucketManager.fetch(url, this.bucket, key, (err, body, info) => {
