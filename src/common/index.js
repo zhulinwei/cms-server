@@ -1,5 +1,5 @@
 
 module.exports = {
   enum: require('./enum'),
-  helper: require('./helper')
+  utils: require('./utils')
 };

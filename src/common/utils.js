@@ -25,7 +25,7 @@ class Utils {
     });
     archive.directory(dirpath, false);
     archive.pipe(fs.createWriteStream(destpath));
-    archive.finalize();
+    return archive.finalize();
   }
 }
 
