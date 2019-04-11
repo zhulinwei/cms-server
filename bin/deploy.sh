@@ -5,6 +5,6 @@ IMAGE_TAG=$1
 IMAGE_NAME="registry.cn-hangzhou.aliyuncs.com/zhulinwei/cms_server:${IMAGE_TAG}"
 if [ "${CONTAINER_ID}" != "" ];then
   docker stop ${CONTAINER_NAME}
-  docker rm -f ${CONTAINER_NAME}
+  docker rm ${CONTAINER_NAME}
 fi
  docker run -d -p ${CONTAINER_PORT}:${CONTAINER_PORT} --name ${CONTAINER_NAME} ${IMAGE_NAME}
