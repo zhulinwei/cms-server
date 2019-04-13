@@ -1,3 +1,3 @@
 module.exports = {
-  serviceMiddleware: require('./service')
+  servicee: require('./service')
 };
