@@ -1,14 +1,13 @@
 const fs = require('fs');
-const utils = require('../utils');
 const service = require('../service');
 
 class QiniuController {
-  token(ctx, next) {
+  token (ctx, next) {
     const type = ctx.query.type;
     ctx.body = service.qiniu.token(type);
   }
 
-  async upload(ctx, next) {
+  async upload (ctx, next) {
     const files = ctx.request.files;
     const keys = Object.keys(files);
     const data = await Promise.all(keys.map(async key => {
@@ -19,7 +18,7 @@ class QiniuController {
       // let filePath = __dirname + `/${file.name}`;
       // let upStream = fs.createWriteStream(filePath);
       // reader.pipe(upStream);
-      return utils.addQiniuHost(body.key);
+      return service.qiniu.addHost(body.key);
     }));
     ctx.body = { errno: 0, data };
   }

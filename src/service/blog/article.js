@@ -1,4 +1,4 @@
-const utils = require('../../utils');
+const utils = require('l-utility');
 const mongodbModel = require('../../model').mongodbModel;
 
 class ArticleService {

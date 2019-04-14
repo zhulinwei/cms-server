@@ -1,7 +1,7 @@
 const util = require('util');
 const createError = require('http-errors');
 
-const utils = require('../../utils');
+const utils = require('l-utility');
 const service = require('../../service');
 
 class ArticleController {
@@ -13,7 +13,7 @@ class ArticleController {
 
     let { count, list } = await service.blog.article.list(selector, options);
     list = list.map(article => {
-      article.thumbnail = utils.addQiniuHost(article.thumbnail);
+      article.thumbnail = service.qiniu.addHost(article.thumbnail);
       return article;
     });
     const residue = utils.residue(count);
@@ -26,7 +26,7 @@ class ArticleController {
     const result = await service.blog.article.nextList({ catalogId, articleId });
 
     const list = result.list.map(article => {
-      article.thumbnail = utils.addQiniuHost(article.thumbnail);
+      article.thumbnail = service.qiniu.addHost(article.thumbnail);
       return article;
     });
     ctx.body = { residue: utils.residue(result.count), list };
@@ -37,7 +37,7 @@ class ArticleController {
     const inc = ctx.query.inc || 0;
     if (!id) throw new createError.BadRequest('无效的文章编号');
     let article = await service.blog.article.detail(id, inc);
-    if (article) article.thumbnail = utils.addQiniuHost(article.thumbnail);
+    if (article) article.thumbnail = service.qiniu.addHost(article.thumbnail);
     ctx.body = article;
   }
 
@@ -73,7 +73,7 @@ class ArticleController {
     if (author) updator.author = author;
     if (outline) updator.outline = outline;
     if (content) updator.content = content;
-    if (thumbnail) updator.thumbnail = utils.removeQiniuHost(thumbnail);
+    if (thumbnail) updator.thumbnail = service.qiniu.removeHost(thumbnail);
     if (catalogId) updator.catalogId = utils.newObjectId(catalogId);
     if (readCount) updator.readCount = parseInt(readCount || 0);
     await service.blog.article.update(id, updator);

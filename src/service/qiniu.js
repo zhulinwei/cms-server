@@ -1,9 +1,8 @@
-const qiniu = require('qiniu'); 
-
-const utils = require('../utils');
+const qiniu = require('qiniu');
+const utils = require('l-utility');
 const config = require('../configs').qiniu;
 
-class QiniuService { 
+class QiniuService {
   constructor () {
     this.host = config.host;
     this.bucket = config.bucket;
@@ -13,7 +12,15 @@ class QiniuService {
 
   key (type) {
     const prefix = type || 'cms';
-    return `${prefix}/${utils.newObjectId()}`; 
+    return `${prefix}/${utils.newObjectId()}`;
+  }
+
+  addHost (key) {
+    return `${this.host}/${key}`;
+  }
+
+  removeHost (key) {
+    return key.replace(`${this.host}/`, '');
   }
 
   token (type) {
@@ -36,21 +43,21 @@ class QiniuService {
   }
 
   // 批量获取文件信息
-  async batchGainFileInfo(files) {
+  async batchGainFileInfo (files) {
     if (!files || files.length < 1) throw new Error('无效的文件名');
     if (files.length > 1000) throw new Error('文件数量超出限制');
     const statOperations = files.map(file => qiniu.rs.statOp(this.bucket, file));
     const bucketManager = new qiniu.rs.BucketManager(this.mac, this.qiniuConfig);
     return new Promise((resolve, reject) => {
-      bucketManager.batch(statOperations, (err, body, info)  => {
+      bucketManager.batch(statOperations, (err, body, info) => {
         if (err) reject(err);
         return resolve(body);
       });
     });
-  };
+  }
 
   // 服务器上传
-  upload(readStream) {
+  upload (readStream) {
     const { key, token } = this.token();
     const putExtra = new qiniu.form_up.PutExtra();
     const formUploader = new qiniu.form_up.FormUploader(this.qiniuConfig);
