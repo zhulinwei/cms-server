@@ -1,7 +1,6 @@
-const util = require('util');
+const utils = require('l-utility');
 const createError = require('http-errors');
 
-const utils = require('l-utility');
 const service = require('../../service');
 
 class ArticleController {
@@ -16,7 +15,7 @@ class ArticleController {
       article.thumbnail = service.qiniu.addHost(article.thumbnail);
       return article;
     });
-    const residue = utils.residue(count);
+    const residue = Math.max(count - options.limit, 0);
     ctx.body = { count, residue, list };
   }
 
@@ -48,7 +47,7 @@ class ArticleController {
     if (!thumbnail) throw new createError.BadRequest('无效的文章缩略图');
     if (!outline) throw new createError.BadRequest('无效的文章摘要');
     if (!content) throw new createError.BadRequest('无效的文章内容');
-    if (!util.isBoolean(isTop)) throw new createError.BadRequest('无效的置顶信息');
+    if (!utils.isBoolean(isTop)) throw new createError.BadRequest('无效的置顶信息');
     if (!author) throw new createError.BadRequest('无效的作者信息');
     catalogId = utils.newObjectId(catalogId);
     const exists = await service.blog.catalog.exists({ _id: catalogId });
@@ -68,7 +67,7 @@ class ArticleController {
     if (!id) throw new createError.BadRequest('无效的文章编号');
     let updator = {};
     const { catalogId, title, thumbnail, outline, content, isTop, author, readCount } = ctx.request.body;
-    if (util.isBoolean(isTop)) updator.isTop = isTop;
+    if (utils.isBoolean(isTop)) updator.isTop = isTop;
     if (title) updator.title = title;
     if (author) updator.author = author;
     if (outline) updator.outline = outline;
