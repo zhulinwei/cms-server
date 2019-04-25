@@ -1,43 +1,47 @@
 
 const utils = require('l-utility');
-const common = require('../common');
+const Enum = require('../common/enum');
 const qiniuService = require('./qiniu');
 // const redisModel = require('../model').redisModel;
 const mongodbModel = require('../model').mongodbModel;
-const { Enum } = common;
 
 class UserService {
-  async isNewUser (user) {
-    const selector = { provider: user.provider, openId: user.uid };
-    const count = await mongodbModel.user.count(selector);
-    return count < 1;
-  }
-
-  async register (user) {
-    const token = utils.md5(user.uid);
-    const avatarKey = qiniuService.key('user');
-    await qiniuService.fetch(user.avatar, avatarKey);
-    const selector = { openId: user.uid, provider: user.provider };
-    const newUser = Object.assign({
-      token,
-      openId: user.uid,
-      avatar: avatarKey,
-      provider: user.provider,
-      nickname: user.nickname
-    }, user.body);
-    const result = await mongodbModel.user.findOneAndUpdate(selector, { $set: newUser }, { upsert: true, returnOrignal: false });
-    console.log(result);
-    return this._format(newUser);
-  }
-
   async _format (user) {
     if (!user) return {};
     return {
       uid: user._id,
-      avatar: utils.addQiniuHost(user.avatar),
+      avatar: qiniuService.addHost(user.avatar),
       nickname: user.nickname,
       role: Enum.UserRoleType.USER
     };
+  }
+
+  async isNewUser (passportUser) {
+    const selector = { provider: passportUser.provider, openId: passportUser.uid };
+    const count = await mongodbModel.user.count(selector);
+    return count < 1;
+  }
+
+  async register (passportUser) {
+    const token = utils.md5(passportUser.uid);
+    const avatarKey = qiniuService.key('user');
+    await qiniuService.fetch(passportUser.avatar, avatarKey);
+    const selector = { openId: passportUser.uid, provider: passportUser.provider };
+    const user = Object.assign({ body: passportUser.body }, {
+      token,
+      openId: passportUser.uid,
+      avatar: avatarKey,
+      provider: passportUser.provider,
+      nickname: passportUser.nickname
+    });
+    await mongodbModel.user.findOneAndUpdate(selector, { $set: user }, { upsert: true, returnOrignal: false });
+    return this._format(user);
+  }
+
+  async getUserByPassport (passportUser) {
+    const selector = { openId: passportUser.uid, provider: passportUser.provider };
+    const user = await mongodbModel.user.findOne(selector);
+    return this._format(user);
   }
 
   // async findOneWithFormat (selector) {
