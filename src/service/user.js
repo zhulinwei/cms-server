@@ -1,8 +1,8 @@
-
 const utils = require('l-utility');
+const moment = require('moment');
 const Enum = require('../common/enum');
 const qiniuService = require('./qiniu');
-// const redisModel = require('../model').redisModel;
+const redisModel = require('../model').redisModel;
 const mongodbModel = require('../model').mongodbModel;
 
 class UserService {
@@ -22,7 +22,7 @@ class UserService {
     return count < 1;
   }
 
-  async register (passportUser) {
+  async saveNewUser (passportUser) {
     const token = utils.md5(passportUser.uid);
     const avatarKey = qiniuService.key('user');
     await qiniuService.fetch(passportUser.avatar, avatarKey);
@@ -44,33 +44,26 @@ class UserService {
     return this._format(user);
   }
 
-  // async findOneWithFormat (selector) {
-  //   const user = await mongodbModel.user.findOne(selector);
-  //   return this._format(user);
-  // }
+  async getUserById (uid) {
+    const user = await mongodbModel.user.findOne({ _id: utils.newObjectId(uid) });
+    return this._format(user);
+  }
 
-  // async userinfo (uid) {
-  //   const user = await mongodbModel.user.findOne({ _id: utils.newObjectId(uid) });
-  //   return this._format(user);
-  // }
+  async getTouristById (uid) {
+    const tourist = await redisModel.cms.get(uid);
+    if (!tourist) return {};
+    return JSON.parse(tourist);
+  }
 
-  // async newTourist () {
-  //   const tourist = {
-  //     avatar: '',
-  //     uid: utils.newObjectId(),
-  //     role: Enum.UserRoleType.TOURIST,
-  //     nickname: `游客_${moment().unix().toString(16)}`
-  //   };
-  //   // 缓存游客信息，时长为2小时
-  //   await redisModel.cms.setex(tourist.uid.toString(), 2 * 60 * 60, JSON.stringify(tourist));
-  //   return tourist;
-  // }
-
-  // async touristInfo (uid) {
-  //   const tourist = await redisModel.cms.get(uid);
-  //   if (!tourist) return {};
-  //   return JSON.parse(tourist);
-  // }
+  async buildTourist () {
+    const tourist = {
+      uid: utils.newObjectId(),
+      role: Enum.UserRoleType.TOURIST,
+      nickname: `游客_${moment().unix().toString(16)}`
+    };
+    await redisModel.cms.setex(tourist.uid.toString(), 2 * 60 * 60, JSON.stringify(tourist));
+    return tourist;
+  }
 }
 
 module.exports = new UserService();
