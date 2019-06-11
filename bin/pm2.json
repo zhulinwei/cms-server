@@ -7,8 +7,15 @@
       "NAME": "cms_server",
       "PORT": 3451,
       "NODE_ENV": "development",
+
+      "DEBUG": "cms:*",
+      "DEBUG_COLORS": true,
+      "DEBUG_HIDE_DATE": true,
+
       "REDIS_CMS": "redis://localhost:6379/0",
-      "MONGODB_CMS": "mongodb://localhost:27017/cms"
+      "MONGODB_CMS": "mongodb://localhost:27017/cms",
+      "QQ_WEB_APPID": "your_qq_web_appid",
+      "QQ_WEB_APPKEY": "your_qq_web_appkey"
     }
   }]
 }
