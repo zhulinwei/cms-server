@@ -20,15 +20,16 @@ class ArticleController {
   }
 
   async nextList (ctx, next) {
-    const { catalogId, articleId } = ctx.request.body;
+    const { catalogId, articleId, options = { limit: 20 } } = ctx.request.body;
     if (!articleId) throw new createError.BadRequest('无效的文章编号');
-    const result = await service.blog.article.nextList({ catalogId, articleId });
-
-    const list = result.list.map(article => {
+    let { count, list } = await service.blog.article.nextList({ catalogId, articleId });
+    list = list.map(article => {
       article.thumbnail = service.qiniu.addHost(article.thumbnail);
       return article;
     });
-    ctx.body = { residue: utils.residue(result.count), list };
+
+    const residue = Math.max(count - options.limit, 0);
+    ctx.body = { residue, list };
   }
 
   async detail (ctx, next) {

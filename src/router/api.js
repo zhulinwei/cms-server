@@ -15,7 +15,7 @@ class BlogRouter {
     router.get('/blog/articles/:id', ctrl.blog.article.detail);
     // 接口可合并
     router.post('/blog/articles/query', ctrl.blog.article.list);
-    // router.post('/blog/articles/next/query', ctrl.blog.article.getNextList);
+    router.post('/blog/articles/next/query', ctrl.blog.article.nextList);
     router.get('/blog/articles/:id/comments', ctrl.blog.comment.list);
     router.post('/blog/articles/:id/comments', ctrl.blog.comment.save);
     router.get('/blog/search', ctrl.blog.article.search);
