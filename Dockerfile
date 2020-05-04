@@ -1,4 +1,4 @@
-FROM node:10.9.0
+FROM node:latest
 
 ENV NAME cms-server
 ENV PORT 3451

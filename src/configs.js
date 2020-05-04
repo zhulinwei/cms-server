@@ -25,8 +25,8 @@ module.exports = {
   },
   authorization: {
     qq: {
-      appId: process.env.QQ_WEB_APPID || '',
-      appKey: process.env.QQ_WEB_APPKEY || '',
+      appId: process.env.QQ_WEB_APPID || 'default_app_id',
+      appKey: process.env.QQ_WEB_APPKEY || 'default_app_key',
       redirect: process.env.QQ_WEB_REDIRECT || 'http://localhost:3451/api/auth/qq/login'
     }
   },

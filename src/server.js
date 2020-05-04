@@ -1,31 +1,54 @@
 const Koa = require('koa');
+const configs = require('./configs');
 const database = require('./database');
 const middleware = require('./middleware');
 const mainService = require('./service/mail');
 
-class Service {
-  async start () {
+class Server {
+  constructor (port) {
+    this.port = port;
+    this.app = new Koa();
+  }
+
+  async _initializeDatabase () {
     await database.init();
-    const app = new Koa();
-    app.use(middleware.service.notFound);
-    app.use(middleware.service.exception);
-    app.use(middleware.service.bodyParser);
+  }
+
+  _initializeMiddlewares () {
+    this.app.use(middleware.server.notFound);
+    this.app.use(middleware.server.exception);
+    this.app.use(middleware.server.bodyParser);
+  }
+
+  _initializeRouters () {
+    require('./router').routes(this.app);
+  }
+
+  _initializeErrorHandle () {
     process.on('unhandledRejection', async (reason, p) => {
       await mainService.send({ subject: process.env.NAME, html: p });
     });
-
     process.on('rejectionHandled', async (p) => {
       await mainService.send({ subject: process.env.NAME, html: p });
     });
-
     process.on('uncaughtException', async (err) => {
       await mainService.send({ subject: process.env.NAME, html: err });
     });
-    // 路由的进入必须在初始化数据库之后
-    const router = require('./router');
-    router.routes(app);
-    return app;
+  }
+
+  _listen () {
+    this.app.listen(this.port);
+  }
+
+  async init () {
+    await this._initializeDatabase();
+    this._initializeMiddlewares();
+    this._initializeErrorHandle();
+    this._initializeRouters();
+    this._listen();
+
+    return this.app;
   }
 }
 
-module.exports = new Service();
+module.exports = new Server(configs.server.port);

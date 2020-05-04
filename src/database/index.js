@@ -1,6 +1,8 @@
 const redis = require('./redis');
 const mongodb = require('./mongodb');
 
+const debug = require('debug')('cms:database');
+
 class Database {
   constructor () {
     this.redis = {};
@@ -10,11 +12,12 @@ class Database {
   async init () {
     try {
       this.redis = await redis.init();
-      console.log('redis初始化成功');
+      debug('redis初始化成功');
       this.mongodb = await mongodb.init();
-      console.log('mongodb初始化成功');
+      debug('mongodb初始化成功');
     } catch (error) {
-      console.log(error);
+      // TODO 错误处理
+      debug(error);
     }
   }
 }

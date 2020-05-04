@@ -1,4 +1,4 @@
 module.exports = {
-  service: require('./service'),
+  server: require('./server'),
   passport: require('./passport')
 };
