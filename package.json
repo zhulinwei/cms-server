@@ -28,7 +28,7 @@
     "l-utility": "^1.0.2",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "mongodb": "^3.1.0-beta4",
+    "mongodb": "^3.1.13",
     "nodemailer": "^4.6.8",
     "qiniu": "^7.2.1",
     "request": "^2.87.0",
